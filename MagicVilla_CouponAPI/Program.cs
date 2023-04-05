@@ -1,3 +1,5 @@
+using MagicVilla_CouponAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,11 +16,10 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.MapGet("/hello/{id:int}", (int id) =>
+app.MapGet("api/coupon", () =>
 {
-  return Results.Ok($"Id = {id}");
+  return Results.Ok(CouponStore.couponList);
 });
-app.MapPost("/hello2", () => Results.Ok("Hello World2"));
 
 app.UseHttpsRedirection();
 app.Run();
