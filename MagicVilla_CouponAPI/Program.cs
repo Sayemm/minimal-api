@@ -22,7 +22,8 @@ app.MapGet("api/coupon", () =>
 {
   return Results.Ok(CouponStore.couponList);
 })
-.WithName("GetCoupons");
+.WithName("GetCoupons")
+.Produces<IEnumerable<Coupon>>(200);
 
 app.MapGet("api/coupon/{id:int}", (int id) =>
 {
@@ -32,7 +33,8 @@ app.MapGet("api/coupon/{id:int}", (int id) =>
 
   return Results.Ok(coupon);
 })
-.WithName("GetCoupon");
+.WithName("GetCoupon")
+.Produces<Coupon>(200);
 
 app.MapPost("api/coupon", ([FromBody] Coupon coupon) =>
 {
@@ -53,7 +55,9 @@ app.MapPost("api/coupon", ([FromBody] Coupon coupon) =>
   return Results.CreatedAtRoute("GetCoupon", new { id = coupon.Id }, coupon);
   //return Results.Created($"api/coupon/{coupon.Id}", coupon);
 })
- .WithName("CreateCoupon"); ;
+.WithName("CreateCoupon")
+.Accepts<Coupon>("application/json")
+.Produces<Coupon>(201).Produces(400); // These are the possible status code that our endpoint can return
 
 app.MapPut("api/coupon", () =>
 {
