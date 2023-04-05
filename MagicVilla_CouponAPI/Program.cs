@@ -14,9 +14,9 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.MapGet("/hello", () =>
+app.MapGet("/hello/{id:int}", (int id) =>
 {
-  return Results.BadRequest("Exception");
+  return Results.Ok($"Id = {id}");
 });
 app.MapPost("/hello2", () => Results.Ok("Hello World2"));
 
